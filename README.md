@@ -22,11 +22,11 @@ A simple file based cache engine that implements the Psr cache interfaces
 composer.json
 <pre>
 "require": {
-        "micronative/salesforce-orm": "^1.9.0"
+        "micronative/file-cache": "^1.0.0"
     }
 </pre>
 
 Run
 <pre>
-composer require micronative/salesforce-orm
+composer require micronative/file-cache
 </pre>
