@@ -1,0 +1,34 @@
+{
+  "name": "micronative/file-cache",
+  "description": "File Cache",
+  "keywords": [
+    "fiel cache"
+  ],
+  "homepage": "https://github.com/micronative/file-cache",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ken Ngo",
+      "email": "ngodinhloc@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.3||^8.0",
+    "psr/cache": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Micronative\\FileCache\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/",
+      "Samples\\": "samples/"
+    }
+  },
+  "minimum-stability": "dev"
+}
