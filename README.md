@@ -11,7 +11,7 @@
 [ico-downloads-monthly]: https://img.shields.io/packagist/dm/micronative/file-cache.svg
 
 [link-travis]: https://travis-ci.org/micronative/file-cache
-[link-codecov]: https://app.codecov.io/gh/micronative/file-cache
+[link-codecov]: https://codecov.io/gh/micronative/file-cache
 [link-packagist]: https://packagist.org/packages/micronative/file-cache
 [link-downloads]: https://packagist.org/packages/micronative/file-cache/stats
 
