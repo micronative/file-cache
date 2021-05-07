@@ -17,7 +17,7 @@
 
 A simple file based cache engine that implements the Psr cache interfaces
 
-##Configuration
+## Configuration
 
 composer.json
 <pre>
