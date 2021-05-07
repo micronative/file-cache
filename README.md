@@ -16,3 +16,17 @@
 [link-downloads]: https://packagist.org/packages/micronative/file-cache/stats
 
 A simple file based cache engine that implements the Psr cache interfaces
+
+##Configuration
+
+composer.json
+<pre>
+"require": {
+        "micronative/salesforce-orm": "^1.9.0"
+    }
+</pre>
+
+Run
+<pre>
+composer require micronative/salesforce-orm
+</pre>
