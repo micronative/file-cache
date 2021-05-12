@@ -17,7 +17,7 @@ A simple file based cache engine that implements the Psr cache interfaces
 composer.json
 <pre>
 "require": {
-        "micronative/file-cache": "^1.0.2"
+        "micronative/file-cache": "^1.0.0"
 },
 "repositories": [
     { "type": "vcs", "url": "https://github.com/micronative/file-cache" }
