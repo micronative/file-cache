@@ -26,5 +26,5 @@ composer.json
 
 Run
 <pre>
-composer require micronative/file-cache
+composer require micronative/file-cache:1.0.0
 </pre>
