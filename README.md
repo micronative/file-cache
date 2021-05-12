@@ -18,10 +18,10 @@ composer.json
 <pre>
 "require": {
         "micronative/file-cache": "^1.0.2"
-    }
+},
 "repositories": [
     { "type": "vcs", "url": "https://github.com/micronative/file-cache" }
-  ],
+],
 </pre>
 
 Run
