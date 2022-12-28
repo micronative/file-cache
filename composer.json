@@ -13,10 +13,11 @@
     }
   ],
   "require": {
-    "php": "^7.3||^8.0",
+    "php": "^8.0",
     "psr/cache": "^1.0"
   },
   "require-dev": {
+    "ramsey/uuid": "3.9.3",
     "phpunit/phpunit": "^9.0"
   },
   "autoload": {
@@ -26,7 +27,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\": "tests/"
+      "Tests\\": "tests/",
+      "Samples\\": "samples/"
     }
   },
   "minimum-stability": "dev"
