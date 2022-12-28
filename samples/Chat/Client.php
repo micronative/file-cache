@@ -61,6 +61,7 @@ class Client implements ClientInterface
         foreach ($data as $message){
             $this->activeConversation->push($this->messageTransformer->transform(json_encode($message)));
         }
+        error_log($json);
     }
 
     public function display()

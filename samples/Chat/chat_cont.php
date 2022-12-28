@@ -18,8 +18,6 @@ try {
     $client2->startConversation([1]);
     $client1->poll();
     $client2->poll();
-    $client1->display();
-    $client2->display();
     $client1->sendMessage('Nice to meet you May');
     $client2->sendMessage('Mee too');
     $client1->poll();
