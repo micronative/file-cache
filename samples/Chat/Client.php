@@ -58,15 +58,15 @@ class Client implements ClientInterface
     {
         $json = $this->server->fetch($this->activeConversation->getId(), $this->getLastMessageOrder());
         $data = json_decode($json, true);
-        foreach ($data as $message){
+        foreach ($data as $message) {
             $this->activeConversation->push($this->messageTransformer->transform(json_encode($message)));
         }
-        error_log($json);
+        fwrite(STDOUT, date('Y-m-d H:i:s') . ': ' . $json . PHP_EOL);
     }
 
     public function display()
     {
-        error_log(json_encode($this->activeConversation->getMessages()));
+        fwrite(STDOUT, date('Y-m-d H:i:s') . ': ' . json_encode($this->activeConversation->getMessages()) . PHP_EOL);
     }
 
     private function getLastMessageOrder()
