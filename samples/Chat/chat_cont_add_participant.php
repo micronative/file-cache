@@ -1,8 +1,8 @@
 <?php
 require_once('./vendor/autoload.php');
 
-use Samples\Chat\Server;
-use Samples\Chat\Client;
+use Samples\Chat\Client\Client;
+use Samples\Chat\Server\PublicApi\Server;
 
 $server = new Server();
 

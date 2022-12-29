@@ -1,20 +1,23 @@
 <?php
 
-namespace Samples\Chat\Models;
+namespace Samples\Chat\Server\PublicApi\Models;
 
 class Conversation implements \JsonSerializable
 {
     private string $id;
-    private array $participantIds;
+
+    /** @var User[] */
+    private array $participants;
+
     /** @var Message[] */
     private array $messages;
 
     public function __construct(string $id, array $participantIds, array $messages = [])
     {
         $this->id = $id;
-        $this->participantIds = $participantIds;
+        $this->participants = $participantIds;
         $this->messages = $messages;
-        sort($this->participantIds);
+        sort($this->participants);
     }
 
     public function push(Message $message)
@@ -23,8 +26,8 @@ class Conversation implements \JsonSerializable
     }
 
     public function add(int $userId){
-        $this->participantIds[] = $userId;
-        sort($this->participantIds);
+        $this->participants[] = $userId;
+        sort($this->participants);
     }
 
     public function getMessages(): array
@@ -37,16 +40,16 @@ class Conversation implements \JsonSerializable
         return $this->id;
     }
 
-    public function getParticipantIds(): array
+    public function getParticipants(): array
     {
-        return $this->participantIds;
+        return $this->participants;
     }
 
     public function jsonSerialize()
     {
         return [
             'id' => $this->getId(),
-            'participant_ids' => $this->participantIds,
+            'participants' => $this->participants,
             'messages' => $this->messages
         ];
     }

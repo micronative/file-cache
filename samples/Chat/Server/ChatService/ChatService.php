@@ -1,29 +1,28 @@
 <?php
 
-namespace Samples\Chat\Services;
+namespace Samples\Chat\Server\ChatService;
 
 use Micronative\FileCache\CacheItem;
 use Micronative\FileCache\CachePool;
 use Psr\Cache\CacheItemPoolInterface;
 use Ramsey\Uuid\Uuid;
-use Samples\Chat\Models\Conversation;
-use Samples\Chat\Models\Message;
-use Samples\Chat\Transformers\ConversationTransformer;
+use Samples\Chat\Server\ChatService\Models\Conversation;
+use Samples\Chat\Server\ChatService\Models\Message;
+use Samples\Chat\Server\ChatService\Transformers\ConversationTransformer;
 
 class ChatService
 {
-    private string $storageDir;
+    private string $storageDir = __DIR__ . '/Storage';
     private CacheItemPoolInterface $cachePool;
     private ConversationTransformer $conversationTransformer;
 
     /** @var Conversation[] */
     private array $conversations = [];
 
-    public function __construct(string $storageDir, ConversationTransformer $conversationTransformer = null)
+    public function __construct(ConversationTransformer $conversationTransformer = null)
     {
-        $this->storageDir = $storageDir;
-        $this->cachePool = new CachePool($storageDir);
         $this->conversationTransformer = $conversationTransformer ?? new ConversationTransformer();
+        $this->cachePool = new CachePool($this->storageDir);
     }
 
     public function __destruct()
@@ -141,7 +140,7 @@ class ChatService
     {
         $cacheItem = $this->cachePool->getItem($this->key($participantIds));
         if ($cacheItem->get() !== null) {
-            return $this->conversationTransformer->transform(json_encode($cacheItem->get()));
+            return $this->conversationTransformer->transform($cacheItem->get());
         }
 
         return false;

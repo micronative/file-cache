@@ -1,6 +1,6 @@
 <?php
 
-namespace Samples\Chat;
+namespace Samples\Chat\Client;
 
 interface ClientInterface
 {

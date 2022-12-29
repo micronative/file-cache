@@ -1,28 +1,32 @@
 <?php
 
-namespace Samples\Chat;
-use Micronative\FileCache\CachePool;
-use Samples\Chat\Services\ChatService;
-use Samples\Chat\Services\UserService;
+namespace Samples\Chat\Server\PublicApi;
+
+use Samples\Chat\Server\ChatService\ChatService;
+use Samples\Chat\Server\PublicApi\Transformers\ConversationTransformer;
+use Samples\Chat\Server\UserService\UserService;
 
 class Server
 {
     private UserService $userService;
     private ChatService $chatService;
 
-    public function __construct(UserService $userService = null, ChatService $chatService = null)
+    private ConversationTransformer $conversationTransformer;
+
+    public function __construct(UserService $userService = null, ChatService $chatService = null, ConversationTransformer $conversationTransformer = null)
     {
         $this->userService = $userService ?? new UserService();
-        $this->chatService = $chatService ?? new ChatService(__DIR__.'/Storage');
+        $this->chatService = $chatService ?? new ChatService();
+        $this->conversationTransformer = $conversationTransformer ?? new ConversationTransformer();
     }
 
     /**
      * @route api.chat.com/authenticate
      * @param string $username
      * @param $password
-     * @return false|string
+     * @return string
      */
-    public function authenticate(string $username, $password): bool|string
+    public function authenticate(string $username, $password): string
     {
         return $this->userService->authenticate($username, $password);
     }
@@ -34,7 +38,9 @@ class Server
      */
     public function start(array $participantsIds): string
     {
-        return $this->chatService->start($participantsIds);
+        $conversationJson = $this->chatService->start($participantsIds);
+        $userJson = $this->userService->getUsers($participantsIds);
+        return json_encode($this->conversationTransformer->transform($conversationJson, $userJson));
     }
 
     /**

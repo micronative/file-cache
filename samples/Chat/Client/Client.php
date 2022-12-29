@@ -1,13 +1,16 @@
 <?php
 
-namespace Samples\Chat;
+namespace Samples\Chat\Client;
 
-use Samples\Chat\Exceptions\UserException;
-use Samples\Chat\Models\Conversation;
-use Samples\Chat\Models\User;
-use Samples\Chat\Transformers\ConversationTransformer;
-use Samples\Chat\Transformers\MessageTransformer;
-use Samples\Chat\Transformers\UserTransformer;
+use Samples\Chat\Client\Display\ChatTable;
+use Samples\Chat\Client\Display\MessageMapper;
+use Samples\Chat\Client\Exceptions\UserException;
+use Samples\Chat\Client\Models\Conversation;
+use Samples\Chat\Client\Models\User;
+use Samples\Chat\Client\Transformers\ConversationTransformer;
+use Samples\Chat\Client\Transformers\MessageTransformer;
+use Samples\Chat\Client\Transformers\UserTransformer;
+use Samples\Chat\Server\PublicApi\Server;
 
 class Client implements ClientInterface
 {
@@ -18,12 +21,23 @@ class Client implements ClientInterface
     private ConversationTransformer $conversationTransformer;
     private MessageTransformer $messageTransformer;
 
-    public function __construct(Server $server, UserTransformer $userTransformer = null, ConversationTransformer $conversationTransformer = null, $messageTransformer = null)
+    private MessageMapper $messageMapper;
+    private ChatTable $chatTable;
+
+    public function __construct(
+        Server                  $server,
+        UserTransformer         $userTransformer = null,
+        ConversationTransformer $conversationTransformer = null,
+        MessageTransformer      $messageTransformer = null,
+        MessageMapper           $messageMapper = null,
+        ChatTable               $chatTable = null)
     {
         $this->server = $server;
         $this->userTransformer = $userTransformer ?? new UserTransformer();
         $this->conversationTransformer = $conversationTransformer ?? new ConversationTransformer();
         $this->messageTransformer = $messageTransformer ?? new MessageTransformer();
+        $this->messageMapper = $messageMapper ?? new MessageMapper();
+        $this->chatTable = $chatTable ?? new ChatTable();
     }
 
     public function login(string $username, string $password)
@@ -61,12 +75,14 @@ class Client implements ClientInterface
         foreach ($data as $message) {
             $this->activeConversation->push($this->messageTransformer->transform(json_encode($message)));
         }
-        fwrite(STDOUT, date('Y-m-d H:i:s') . ': ' . $json . PHP_EOL);
+        echo('-- Polling: ' . $json . PHP_EOL);
     }
 
     public function display()
     {
-        fwrite(STDOUT, date('Y-m-d H:i:s') . ': ' . json_encode($this->activeConversation->getMessages()) . PHP_EOL);
+        $userData = json_decode(json_encode($this->activeConversation->getParticipants()), true);
+        $messageData = json_decode(json_encode($this->activeConversation->getMessages()), true);
+        $this->chatTable->render(['Order', 'At', 'User', 'Message'], $this->messageMapper->map($messageData, $userData));
     }
 
     private function getLastMessageOrder()

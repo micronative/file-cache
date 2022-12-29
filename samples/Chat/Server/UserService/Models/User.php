@@ -1,6 +1,6 @@
 <?php
 
-namespace Samples\Chat\Models;
+namespace Samples\Chat\Server\UserService\Models;
 
 class User implements \JsonSerializable
 {
@@ -33,29 +33,11 @@ class User implements \JsonSerializable
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getUsername(): string
-    {
-        return $this->username;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
     public function jsonSerialize(): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'username' => $this->username,
-            'password' => $this->password,
+            'id' => $this->getId(),
+            'name' => $this->getName()
         ];
     }
 }

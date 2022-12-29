@@ -1,6 +1,6 @@
 <?php
 
-namespace Samples\Chat\Exceptions;
+namespace Samples\Chat\Client\Exceptions;
 
 class UserException extends \RuntimeException
 {
