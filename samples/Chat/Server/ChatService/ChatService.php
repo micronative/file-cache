@@ -30,6 +30,11 @@ class ChatService
         $this->persistConversations();
     }
 
+    /**
+     * @route chat.internal.chat.com/start
+     * @param array $participantIds
+     * @return string
+     */
     public function start(array $participantIds): string
     {
         $conversation = $this->findConversationByParticipantIds($participantIds);
@@ -38,6 +43,12 @@ class ChatService
         return json_encode($conversation);
     }
 
+    /**
+     * @route chat.internal.chat.com/fetch
+     * @param string $conversationId
+     * @param int $lastMessageId
+     * @return string
+     */
     public function fetch(string $conversationId, int $lastMessageId): string
     {
         $conversation = $this->findConversationById($conversationId);
@@ -46,6 +57,13 @@ class ChatService
         return json_encode($messages);
     }
 
+    /**
+     * @route chat.internal.chat.com/send
+     * @param int $userId
+     * @param string $conversationId
+     * @param string $content
+     * @return string
+     */
     public function send(int $userId, string $conversationId, string $content): string
     {
         $conversation = $this->findConversationById($conversationId);
@@ -56,6 +74,12 @@ class ChatService
         return json_encode($message);
     }
 
+    /**
+     * @route chat.internal.chat.com/add
+     * @param string $conversationId
+     * @param int $userId
+     * @return void
+     */
     public function add(string $conversationId, int $userId)
     {
         $conversation = $this->findConversationById($conversationId);
@@ -86,7 +110,6 @@ class ChatService
     private function findConversationByParticipantIds(array $participantIds): Conversation
     {
         if ($conversation = $this->findActiveConversation($participantIds)) {
-            $this->stack($conversation);
 
             return $conversation;
         }

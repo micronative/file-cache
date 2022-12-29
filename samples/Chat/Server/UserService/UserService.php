@@ -15,6 +15,12 @@ class UserService
         $this->userDatabase = require_once('Database/users.php');
     }
 
+    /**
+     * @route user.internal.chat.com/authenticate
+     * @param string $username
+     * @param string $password
+     * @return false|string
+     */
     public function authenticate(string $username, string $password)
     {
         foreach ($this->userDatabase as $data) {
@@ -27,7 +33,12 @@ class UserService
         return '';
     }
 
-    public function getUsers(array $userIds)
+    /**
+     * @route user.internal.chat.com/get
+     * @param array $userIds
+     * @return false|string
+     */
+    public function get(array $userIds)
     {
         $userData = array_filter($this->userDatabase, function ($data) use ($userIds) {
             return in_array($data['id'], $userIds);

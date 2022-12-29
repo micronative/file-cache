@@ -39,7 +39,7 @@ class Server
     public function start(array $participantsIds): string
     {
         $conversationJson = $this->chatService->start($participantsIds);
-        $userJson = $this->userService->getUsers($participantsIds);
+        $userJson = $this->userService->get($participantsIds);
         return json_encode($this->conversationTransformer->transform($conversationJson, $userJson));
     }
 
@@ -66,6 +66,12 @@ class Server
         return $this->chatService->fetch($conversationId, $lastMessageId);
     }
 
+    /**
+     * @route: api.chat.com/add
+     * @param string $conversationId
+     * @param int $userId
+     * @return null
+     */
     public function add(string $conversationId, int $userId)
     {
         return $this->chatService->add($conversationId, $userId);
