@@ -14,6 +14,11 @@ class ChatTable
         $this->table = new Table(new ConsoleOutput());
     }
 
+    /**
+     * @param array $header
+     * @param array $data
+     * @return void
+     */
     public function render(array $header, array $data): void
     {
         $this->table->setHeaders($header)->setRows($data);

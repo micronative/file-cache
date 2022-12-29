@@ -9,6 +9,9 @@ class UserService
     private array $userDatabase;
     private UserTransformer $userTransformer;
 
+    /**
+     * @param UserTransformer|null $userTransformer
+     */
     public function __construct(UserTransformer $userTransformer = null)
     {
         $this->userTransformer = $userTransformer ?? new UserTransformer();
@@ -19,9 +22,9 @@ class UserService
      * @route user.internal.chat.com/authenticate
      * @param string $username
      * @param string $password
-     * @return false|string
+     * @return string|false
      */
-    public function authenticate(string $username, string $password)
+    public function authenticate(string $username, string $password): string|false
     {
         foreach ($this->userDatabase as $data) {
             if ($data['username'] == $username && $data['password'] == $password) {
@@ -30,15 +33,15 @@ class UserService
             }
         }
 
-        return '';
+        return false;
     }
 
     /**
      * @route user.internal.chat.com/get
      * @param array $userIds
-     * @return false|string
+     * @return string|false
      */
-    public function get(array $userIds)
+    public function get(array $userIds): string|false
     {
         $userData = array_filter($this->userDatabase, function ($data) use ($userIds) {
             return in_array($data['id'], $userIds);

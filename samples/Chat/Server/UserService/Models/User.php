@@ -9,6 +9,12 @@ class User implements \JsonSerializable
     private string $username;
     private string $password;
 
+    /**
+     * @param int $id
+     * @param string $name
+     * @param string $username
+     * @param string $password
+     */
     public function __construct(int $id, string $name, string $username, string $password)
     {
         $this->id = $id;

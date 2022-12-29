@@ -50,7 +50,7 @@ class Server
      * @param string $content
      * @return string
      */
-    public function send(int $userId, string $conversationId, string $content)
+    public function send(int $userId, string $conversationId, string $content): string
     {
         return $this->chatService->send($userId, $conversationId, $content);
     }
@@ -70,10 +70,10 @@ class Server
      * @route: api.chat.com/add
      * @param string $conversationId
      * @param int $userId
-     * @return null
+     * @return void
      */
-    public function add(string $conversationId, int $userId)
+    public function add(string $conversationId, int $userId): void
     {
-        return $this->chatService->add($conversationId, $userId);
+        $this->chatService->add($conversationId, $userId);
     }
 }

@@ -6,6 +6,10 @@ use Samples\Chat\Client\Models\Message;
 
 class MessageTransformer
 {
+    /**
+     * @param string|array $data
+     * @return Message
+     */
     public function transform(string|array $data): Message
     {
         if (is_string($data)) {

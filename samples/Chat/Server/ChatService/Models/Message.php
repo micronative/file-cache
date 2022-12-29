@@ -9,6 +9,11 @@ class Message implements \JsonSerializable
     private string $content;
     private string $createdAt;
 
+    /**
+     * @param int $order
+     * @param int $userId
+     * @param string $content
+     */
     public function __construct(int $order, int $userId, string $content)
     {
         $this->order = $order;
@@ -49,6 +54,9 @@ class Message implements \JsonSerializable
         return $this->createdAt;
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize()
     {
         return [

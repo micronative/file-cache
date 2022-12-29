@@ -1,11 +1,15 @@
 <?php
 
-namespace Samples\Chat\Server\Transformers;
+namespace Samples\Chat\Server\ChatService\Transformers;
 
-use Samples\Chat\Server\Models\Message;
+use Samples\Chat\Server\ChatService\Models\Message;
 
 class MessageTransformer
 {
+    /**
+     * @param string|array $data
+     * @return Message
+     */
     public function transform(string|array $data): Message
     {
         if (is_string($data)) {

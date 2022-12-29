@@ -9,34 +9,57 @@ class Conversation implements \JsonSerializable
     /** @var Message[] */
     private array $messages;
 
+    /**
+     * @param string $id
+     * @param array $participantIds
+     * @param array $messages
+     */
     public function __construct(string $id, array $participantIds, array $messages = [])
     {
         $this->id = $id;
         $this->participantIds = $participantIds;
         $this->messages = $messages;
-        sort($this->participantIds);
     }
 
-    public function push(Message $message)
+    /**
+     * @param Message $message
+     * @return Conversation
+     */
+    public function push(Message $message): Conversation
     {
         $this->messages[] = $message;
+        return $this;
     }
 
-    public function add(int $userId){
+    /**
+     * @param int $userId
+     * @return Conversation
+     */
+    public function add(int $userId): Conversation
+    {
         $this->participantIds[] = $userId;
-        sort($this->participantIds);
+        return $this;
     }
 
+    /**
+     * @return Message[]
+     */
     public function getMessages(): array
     {
         return $this->messages;
     }
 
+    /**
+     * @return string
+     */
     public function getId(): string
     {
         return $this->id;
     }
 
+    /**
+     * @return array
+     */
     public function getParticipantIds(): array
     {
         return $this->participantIds;

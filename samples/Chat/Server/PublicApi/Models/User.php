@@ -7,6 +7,10 @@ class User implements \JsonSerializable
     private int $id;
     private string $name;
 
+    /**
+     * @param int $id
+     * @param string $name
+     */
     public function __construct(int $id, string $name)
     {
         $this->id = $id;
@@ -29,6 +33,9 @@ class User implements \JsonSerializable
         return $this->name;
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize(): array
     {
         return [

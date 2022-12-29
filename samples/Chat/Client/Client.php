@@ -24,6 +24,14 @@ class Client implements ClientInterface
     private MessageMapper $messageMapper;
     private ChatTable $chatTable;
 
+    /**
+     * @param Server $server
+     * @param UserTransformer|null $userTransformer
+     * @param ConversationTransformer|null $conversationTransformer
+     * @param MessageTransformer|null $messageTransformer
+     * @param MessageMapper|null $messageMapper
+     * @param ChatTable|null $chatTable
+     */
     public function __construct(
         Server                  $server,
         UserTransformer         $userTransformer = null,
@@ -40,36 +48,64 @@ class Client implements ClientInterface
         $this->chatTable = $chatTable ?? new ChatTable();
     }
 
-    public function login(string $username, string $password)
+    /**
+     * User login
+     * @param string $username
+     * @param string $password
+     * @return void
+     */
+    public function login(string $username, string $password): void
     {
-        if ($json = $this->server->authenticate($username, $password)) {
-            $this->loggedInUser = $this->userTransformer->transform($json);
-
-            return true;
+        $json = $this->server->authenticate($username, $password);
+        if (empty($json)) {
+            throw new UserException('Invalid username or password');
         }
 
-        throw new UserException('Invalid username or password');
+        $this->loggedInUser = $this->userTransformer->transform($json);
     }
 
-    public function startConversation(array $participantIds)
+    /**
+     * Start a conversation
+     * @param array $participantIds
+     * @return void
+     */
+    public function startConversation(array $participantIds): void
     {
+        $this->requireLoggedInUser();
         $participantIds[] = $this->loggedInUser->getId();
         $json = $this->server->start($participantIds);
         $this->activeConversation = $this->conversationTransformer->transform($json);
     }
 
-    public function sendMessage(string $content)
+    /**
+     * Send message to the current conversation
+     * @param string $content
+     * @return void
+     */
+    public function sendMessage(string $content): void
     {
+        $this->requireActiveConversation();
         $this->server->send($this->loggedInUser->getId(), $this->activeConversation->getId(), $content);
     }
 
-    public function addParticipant(int $userId)
+    /**
+     * Add new participant to the current conversation
+     * @param int $userId
+     * @return void
+     */
+    public function addParticipant(int $userId): void
     {
+        $this->requireActiveConversation();
         $this->server->add($this->activeConversation->getId(), $userId);
     }
 
-    public function poll()
+    /**
+     * Poll for new messages
+     * @return void
+     */
+    public function poll(): void
     {
+        $this->requireActiveConversation();
         $json = $this->server->fetch($this->activeConversation->getId(), $this->getLastMessageOrder());
         $data = json_decode($json, true);
         foreach ($data as $message) {
@@ -78,14 +114,22 @@ class Client implements ClientInterface
         echo('-- Polling: ' . $json . PHP_EOL);
     }
 
-    public function display()
+    /**
+     * Display the current conversation
+     * @return void
+     */
+    public function display(): void
     {
+        $this->requireActiveConversation();
         $userData = json_decode(json_encode($this->activeConversation->getParticipants()), true);
         $messageData = json_decode(json_encode($this->activeConversation->getMessages()), true);
         $this->chatTable->render(['Order', 'At', 'User', 'Message'], $this->messageMapper->map($messageData, $userData));
     }
 
-    private function getLastMessageOrder()
+    /**
+     * @return int
+     */
+    private function getLastMessageOrder(): int
     {
         $order = 0;
         foreach ($this->activeConversation->getMessages() as $message) {
@@ -95,5 +139,27 @@ class Client implements ClientInterface
         }
 
         return $order;
+    }
+
+    /**
+     * Check if user start the conversation or not
+     * @return void
+     */
+    private function requireActiveConversation(): void
+    {
+        if (empty($this->activeConversation)) {
+            throw new UserException('Please start conversation first.');
+        }
+    }
+
+    /**
+     * Check if user logged in or not
+     * @return void
+     */
+    private function requireLoggedInUser(): void
+    {
+        if (empty($this->loggedInUser)) {
+            throw new UserException('Please log in to first.');
+        }
     }
 }

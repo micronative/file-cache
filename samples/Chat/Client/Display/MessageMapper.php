@@ -4,7 +4,12 @@ namespace Samples\Chat\Client\Display;
 
 class MessageMapper
 {
-    public function map(array $messageData, array $userData)
+    /**
+     * @param array $messageData
+     * @param array $userData
+     * @return array
+     */
+    public function map(array $messageData, array $userData): array
     {
         return array_map(function ($message) use ($userData) {
             foreach ($userData as $user) {

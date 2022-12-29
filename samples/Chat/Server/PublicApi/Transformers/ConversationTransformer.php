@@ -8,11 +8,22 @@ class ConversationTransformer
 {
     private UserTransformer $userTransformer;
     private MessageTransformer $messageTransformer;
+
+    /**
+     * @param UserTransformer|null $userTransformer
+     * @param MessageTransformer|null $messageTransformer
+     */
     public function __construct(UserTransformer $userTransformer = null, MessageTransformer $messageTransformer = null)
     {
         $this->userTransformer = $userTransformer ?? new UserTransformer();
         $this->messageTransformer = $messageTransformer ?? new MessageTransformer();
     }
+
+    /**
+     * @param string|array $conversationData
+     * @param string|array $userData
+     * @return Conversation
+     */
     public function transform(string|array $conversationData, string|array $userData): Conversation
     {
         if (is_string($conversationData)) {
