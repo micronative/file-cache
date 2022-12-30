@@ -2,7 +2,7 @@
 require_once('./vendor/autoload.php');
 
 use Samples\Chat\Client\Client;
-use Samples\Chat\Server\PublicApi\Server;
+use Samples\Chat\Server\Api\Server;
 
 $server = new Server();
 
@@ -16,8 +16,7 @@ try {
     $client3 = new Client($server);
     $client3->login('tif@chat.com', '123');
     $client3->startConversation([1,2]);
-    $client3->display();
-
+    $client3->poll();
 }catch (\Exception $exception) {
     echo $exception->getMessage();
 }

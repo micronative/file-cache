@@ -1,14 +1,14 @@
 <?php
 
-namespace Samples\Chat\Server\ChatService\Services;
+namespace Samples\Chat\Server\Chat\Services;
 
 use Micronative\FileCache\CacheItem;
 use Micronative\FileCache\CachePool;
 use Micronative\FileCache\Exceptions\CachePoolException;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
-use Samples\Chat\Server\ChatService\Models\Conversation;
-use Samples\Chat\Server\ChatService\Transformers\ConversationTransformer;
+use Samples\Chat\Server\Chat\Models\Conversation;
+use Samples\Chat\Server\Chat\Transformers\ConversationTransformer;
 
 class PersistentManager
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Samples\Chat\Server\ChatService;
+namespace Samples\Chat\Server\Chat;
 
-use Samples\Chat\Server\ChatService\Services\ConversationManager;
+use Samples\Chat\Server\Chat\Services\ConversationManager;
 
 class ChatService
 {

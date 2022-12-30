@@ -1,6 +1,6 @@
 <?php
 
-namespace Samples\Chat\Server\ChatService\Models;
+namespace Samples\Chat\Server\Api\Models;
 
 class Message implements \JsonSerializable
 {
@@ -13,13 +13,14 @@ class Message implements \JsonSerializable
      * @param int $order
      * @param int $userId
      * @param string $content
+     * @param string $createdAt
      */
-    public function __construct(int $order, int $userId, string $content)
+    public function __construct(int $order, int $userId, string $content, string $createdAt)
     {
         $this->order = $order;
         $this->userId = $userId;
         $this->content = $content;
-        $this->createdAt = date('Y:m:d H:i:s');
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -54,10 +55,11 @@ class Message implements \JsonSerializable
         return $this->createdAt;
     }
 
+
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'order' => $this->getOrder(),

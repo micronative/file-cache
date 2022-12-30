@@ -1,8 +1,8 @@
 <?php
 
-namespace Samples\Chat\Server\PublicApi\Transformers;
+namespace Samples\Chat\Server\Api\Transformers;
 
-use Samples\Chat\Server\PublicApi\Models\Message;
+use Samples\Chat\Server\Api\Models\Message;
 
 class MessageTransformer
 {

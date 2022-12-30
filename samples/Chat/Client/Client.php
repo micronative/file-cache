@@ -10,7 +10,7 @@ use Samples\Chat\Client\Models\User;
 use Samples\Chat\Client\Transformers\ConversationTransformer;
 use Samples\Chat\Client\Transformers\MessageTransformer;
 use Samples\Chat\Client\Transformers\UserTransformer;
-use Samples\Chat\Server\PublicApi\Server;
+use Samples\Chat\Server\Api\Server;
 
 class Client implements ClientInterface
 {
@@ -111,14 +111,15 @@ class Client implements ClientInterface
         foreach ($data as $message) {
             $this->activeConversation->push($this->messageTransformer->transform(json_encode($message)));
         }
-        echo('-- Polling: ' . $json . PHP_EOL);
+        error_log('-- Polling: ' . $json . PHP_EOL);
+        $this->display();
     }
 
     /**
      * Display the current conversation
      * @return void
      */
-    public function display(): void
+    private function display(): void
     {
         $this->requireActiveConversation();
         $userData = json_decode(json_encode($this->activeConversation->getParticipants()), true);

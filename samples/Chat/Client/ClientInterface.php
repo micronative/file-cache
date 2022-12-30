@@ -36,10 +36,4 @@ interface ClientInterface
      * @return mixed
      */
     public function poll();
-
-    /**
-     * Display the chat messages
-     * @return mixed
-     */
-    public function display();
 }

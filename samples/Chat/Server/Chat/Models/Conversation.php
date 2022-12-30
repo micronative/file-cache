@@ -1,14 +1,11 @@
 <?php
 
-namespace Samples\Chat\Server\PublicApi\Models;
+namespace Samples\Chat\Server\Chat\Models;
 
 class Conversation implements \JsonSerializable
 {
     private string $id;
-
-    /** @var User[] */
-    private array $participants;
-
+    private array $participantIds;
     /** @var Message[] */
     private array $messages;
 
@@ -20,7 +17,7 @@ class Conversation implements \JsonSerializable
     public function __construct(string $id, array $participantIds, array $messages = [])
     {
         $this->id = $id;
-        $this->participants = $participantIds;
+        $this->participantIds = $participantIds;
         $this->messages = $messages;
     }
 
@@ -40,7 +37,7 @@ class Conversation implements \JsonSerializable
      */
     public function add(int $userId): Conversation
     {
-        $this->participants[] = $userId;
+        $this->participantIds[] = $userId;
         return $this;
     }
 
@@ -61,22 +58,19 @@ class Conversation implements \JsonSerializable
     }
 
     /**
-     * @return User[]
-     */
-    public function getParticipants(): array
-    {
-        return $this->participants;
-    }
-
-    /**
      * @return array
      */
-    public function jsonSerialize(): array
+    public function getParticipantIds(): array
+    {
+        return $this->participantIds;
+    }
+
+    public function jsonSerialize()
     {
         return [
             'id' => $this->getId(),
-            'participants' => $this->getParticipants(),
-            'messages' => $this->getMessages(),
+            'participant_ids' => $this->participantIds,
+            'messages' => $this->messages
         ];
     }
 }

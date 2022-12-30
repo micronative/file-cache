@@ -1,8 +1,8 @@
 <?php
 
-namespace Samples\Chat\Server\PublicApi\Transformers;
+namespace Samples\Chat\Server\Api\Transformers;
 
-use Samples\Chat\Server\PublicApi\Models\User;
+use Samples\Chat\Server\Api\Models\User;
 
 class UserTransformer
 {

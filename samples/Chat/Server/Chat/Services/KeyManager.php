@@ -1,6 +1,6 @@
 <?php
 
-namespace Samples\Chat\Server\ChatService\Services;
+namespace Samples\Chat\Server\Chat\Services;
 
 class KeyManager
 {

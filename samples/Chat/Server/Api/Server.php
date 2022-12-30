@@ -1,10 +1,10 @@
 <?php
 
-namespace Samples\Chat\Server\PublicApi;
+namespace Samples\Chat\Server\Api;
 
-use Samples\Chat\Server\ChatService\ChatService;
-use Samples\Chat\Server\PublicApi\Transformers\ConversationTransformer;
-use Samples\Chat\Server\UserService\UserService;
+use Samples\Chat\Server\Chat\ChatService;
+use Samples\Chat\Server\Api\Transformers\ConversationTransformer;
+use Samples\Chat\Server\User\UserService;
 
 class Server
 {

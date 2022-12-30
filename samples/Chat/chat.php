@@ -2,7 +2,7 @@
 require_once('./vendor/autoload.php');
 
 use Samples\Chat\Client\Client;
-use Samples\Chat\Server\PublicApi\Server;
+use Samples\Chat\Server\Api\Server;
 
 $server = new Server();
 
@@ -27,8 +27,6 @@ try {
     $client1->sendMessage('My name is Ken');
     $client2->poll();
     $client1->poll();
-    $client1->display();
-    $client2->display();
 }catch (\Exception $exception) {
     echo $exception->getMessage();
 }

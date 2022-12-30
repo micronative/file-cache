@@ -1,26 +1,20 @@
 <?php
 
-namespace Samples\Chat\Server\UserService\Models;
+namespace Samples\Chat\Server\Api\Models;
 
 class User implements \JsonSerializable
 {
     private int $id;
     private string $name;
-    private string $username;
-    private string $password;
 
     /**
      * @param int $id
      * @param string $name
-     * @param string $username
-     * @param string $password
      */
-    public function __construct(int $id, string $name, string $username, string $password)
+    public function __construct(int $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->username = $username;
-        $this->password = $password;
     }
 
     /**
@@ -39,6 +33,9 @@ class User implements \JsonSerializable
         return $this->name;
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize(): array
     {
         return [

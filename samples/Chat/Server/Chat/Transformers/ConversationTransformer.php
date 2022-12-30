@@ -1,8 +1,8 @@
 <?php
 
-namespace Samples\Chat\Server\ChatService\Transformers;
+namespace Samples\Chat\Server\Chat\Transformers;
 
-use Samples\Chat\Server\ChatService\Models\Conversation;
+use Samples\Chat\Server\Chat\Models\Conversation;
 
 class ConversationTransformer
 {

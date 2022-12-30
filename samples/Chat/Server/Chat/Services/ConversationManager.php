@@ -1,12 +1,12 @@
 <?php
 
-namespace Samples\Chat\Server\ChatService\Services;
+namespace Samples\Chat\Server\Chat\Services;
 
 use Exception;
 use Psr\Cache\InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
-use Samples\Chat\Server\ChatService\Models\Conversation;
-use Samples\Chat\Server\ChatService\Models\Message;
+use Samples\Chat\Server\Chat\Models\Conversation;
+use Samples\Chat\Server\Chat\Models\Message;
 
 class ConversationManager
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Samples\Chat\Server\UserService;
+namespace Samples\Chat\Server\User;
 
-use Samples\Chat\Server\UserService\Transformers\UserTransformer;
+use Samples\Chat\Server\User\Transformers\UserTransformer;
 
 class UserService
 {
