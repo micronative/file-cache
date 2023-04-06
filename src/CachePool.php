@@ -116,7 +116,7 @@ class CachePool implements CacheItemPoolInterface
                 }
             } else {
                 if (file_exists($file)) {
-                    @unlink($file);
+                    unlink($file);
                 }
             }
         }
